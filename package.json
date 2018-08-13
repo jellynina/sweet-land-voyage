@@ -16,6 +16,7 @@
   "author": "jellynina",
   "license": "MIT",
   "dependencies": {
+    "noble": "^1.9.1",
     "sphero": "^0.9.2"
   }
 }
