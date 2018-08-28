@@ -1,11 +1,14 @@
 # Sweet Land Voyage
 
 
-
+1. 目的一：擷取Leap motion 的指令，然後送到Sphero上面
+    - [leapjs](https://github.com/leapmotion/leapjs)
+2. 目的二：撈取usb影像播放
+		- [HTML5 Webcam Tutorial](https://www.webcodegeeks.com/html5/html5-webcam-tutorial/)
 
 # Connect with UUID
-使用noble尋找UUID
 
+使用noble尋找UUID
 
 ```
 $ node ./node_modules/noble/examples/advertisement-discovery.js
@@ -41,8 +44,11 @@ theBall.connect(function () {
 # 尋找網路上的各種案例
 
 Controlling Sphero with Leap Motion + Cylon.js
--[blog](http://blog.leapmotion.com/controlling-sphero-leap-motion-cylon-js/)
--[github](https://github.com/charliegerard/leap_sphero)
+
+-[blog](http://blog.leapmotion.com/controlling-sphero-leap-motion-cylon-js/) |
+[github](https://github.com/charliegerard/leap_sphero)
+- 這個是使用express 建立web server的
+
 
 Framer and Firebase
 - [github](https://github.com/mamezito/SpheroBB8FramerNodeJS)
