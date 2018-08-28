@@ -1,11 +1,13 @@
 "use strict";
 
 const Sphero = require("./node_modules/sphero/lib/sphero"),
-express = require('express');
+express = require('express'),
+path = require('path');
 
 const app = express();
 const theBall = new Sphero('af1f81cb842f4308a56657398413d334');
 
+app.use(express.static('public'));
 /*== Expree Webserver ==*/
 app.set('view engine', 'pug');
 app.get('/', (req, res) => {
@@ -17,7 +19,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   console.log("Post trigger");
-  const dataTemp = "資料初始";
+  var dataTemp = "資料初始";
   // 這一段會製造err
   // theBall.getBluetoothInfo((err,data) => {
   //   if(err){
@@ -55,7 +57,6 @@ const getBluetoothData = () => {
     if (err) {
       console.log("error: ", err);
     } else {
-      console.dir(data);
       console.log("data:");
       console.log("  name:", data.name);
       console.log("  btAddress:", data.btAddress);
