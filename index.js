@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
   res.render('index', {
     data: "Push th button to get the information"
   });
-  console.log(theBall);
 });
 
 app.post('/', (req, res) => {

@@ -4,7 +4,11 @@
 1. 目的一：擷取Leap motion 的指令，然後送到Sphero上面
     - [leapjs](https://github.com/leapmotion/leapjs)
 2. 目的二：撈取usb影像播放
-		- [HTML5 Webcam Tutorial](https://www.webcodegeeks.com/html5/html5-webcam-tutorial/)
+		- [HTML5 Webcam Tutorial](https://www.webcodegeeks.com/html5/html5-webcam-tutorial/) : 
+		這個在Firefox裡面會有type err. 不知道為什麼？
+		- [Choose Cameras, Microphones and Speakers from Your Web App ](https://developers.google.com/web/updates/2015/10/media-devices#enumeratedevices)
+
+3. 待辦：expree sass整合
 
 # Connect with UUID
 
