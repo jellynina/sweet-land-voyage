@@ -40,6 +40,60 @@ theBall.connect(function () {
 
 ---
 
+# Sphero data有哪些東西
+
+```
+{ desc: 'Get Bluetooth Info',
+  idCode: undefined,
+  event: 'bluetoothInfo',
+  did: 0,
+  cid: 17,
+  packet:
+   { sop1: 255,
+     sop2: 255,
+     mrsp: 0,
+     seq: 0,
+     dlen: 33,
+     data:
+      Buffer [
+        83,
+        75,
+        45,
+        52,
+        101,
+        49,
+        50,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        102,
+        55,
+        49,
+        97,
+        97,
+        98,
+        97,
+        55,
+        52,
+        101,
+        49,
+        50,
+        0,
+        0,
+        0,
+        0 ],
+     checksum: 145 },
+  name: 'SK-4e12000000000',
+  btAddress: 'f71aaba74e12',
+  separator: 0,
+  colors: '0x0' }
+```
 
 # 尋找網路上的各種案例
 

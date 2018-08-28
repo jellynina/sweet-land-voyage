@@ -1,19 +1,50 @@
 "use strict";
-/*== Sphero Connection ==*/
-var Sphero = require("./node_modules/sphero/lib/sphero.js");
-//var Sphero = require('sphero');
 
-var theBall = new Sphero('af1f81cb842f4308a56657398413d334');
+const Sphero = require("./node_modules/sphero/lib/sphero"),
+express = require('express');
+
+const app = express();
+const theBall = new Sphero('af1f81cb842f4308a56657398413d334');
+
+/*== Expree Webserver ==*/
+app.set('view engine', 'pug');
+app.get('/', (req, res) => {
+  res.render('index', {
+    data: "Push th button to get the information"
+  });
+  console.log(theBall);
+});
+
+app.post('/', (req, res) => {
+  console.log("Post trigger");
+  const dataTemp = "資料初始";
+  // 這一段會製造err
+  // theBall.getBluetoothInfo((err,data) => {
+  //   if(err){
+  //     dataTemp = err;
+  //   } else {
+  //     dataTemp = data.event;
+  //   }
+  // });
+  res.render('index', {
+    data: dataTemp
+  });
+});
+
+app.listen(3000, () => {
+  console.log('The application is running on localhost:3000');
+});
+
+
+/*== Sphero Connection ==*/
 
 const spheroModule = () => {
   initConnections();
-
 }
-
 const initConnections = () => {
   console.log("Waiting for Sphero connection...");
 
-  theBall.connect(() => {
+  theBall.connect(() => { // Issue: 有沒有 err event可以處理，當一直連接不上的時候怎麼辦？
     console.log('Connected to Sphero');
     getBluetoothData();
   });
@@ -24,6 +55,7 @@ const getBluetoothData = () => {
     if (err) {
       console.log("error: ", err);
     } else {
+      console.dir(data);
       console.log("data:");
       console.log("  name:", data.name);
       console.log("  btAddress:", data.btAddress);
