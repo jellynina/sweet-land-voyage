@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.3",
+    "leapjs": "^0.6.4",
     "noble": "^1.9.1",
     "node-sass": "^4.9.3",
     "pug": "^2.0.3",

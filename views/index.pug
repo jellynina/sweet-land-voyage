@@ -1,9 +1,10 @@
 extends layout.pug
 
 block content
+  include includes/leapScreen.pug
   section#video
     h2 Let's get the camera
-    video(id="webcamfeed" autoplay)
+    
 
   section#data
     h2 Sphero's data
@@ -15,3 +16,4 @@ block content
   include includes/footer.pug
   script(src='./video.js')
   script(src='https://js.leapmotion.com/leap-0.6.4.min.js')
+  script(src='./leapShowHand.js')

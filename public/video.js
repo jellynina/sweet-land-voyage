@@ -16,12 +16,9 @@ let videoSourceFlag = false;
 function gotDevices(devices) {
   devices.forEach(device => {
     if (device.kind === 'videoinput'){
-      console.log('====== get device object:');
-      console.dir(device);
+      //console.log('====== get device object:');
+      //console.dir(device);
       videoSourceFlag = true;
-    } else {
-      console.log("No input");
-      videoSourceFlag = false;
     }
   });
 }
