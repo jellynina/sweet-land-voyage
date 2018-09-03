@@ -2,32 +2,58 @@
 
 const video = document.getElementById("webcamfeed"),
       captureWebcam = document.getElementById("capturewebcam");
-console.log('we go the video.js');
 
+const targetID = 'vC4umQBBEQHHs9k6Wd4+m6WP60B7DBCyEVIFLRVXXM4=';
 // Put variables in global scope to make them available to the browser console.
 const constraints = window.constraints = {
   audio: false,
   video: true
 };
 
-function handleSuccess(stream) {
-  const videoTracks = stream.getVideoTracks();
-  console.log('Got stream with constraints:', constraints);
-  console.log(`Using video device: ${videoTracks[0].label}`);
-  window.stream = stream; // make variable available to browser console
+let videoSource = 'vC4umQBBEQHHs9k6Wd4+m6WP60B7DBCyEVIFLRVXXM4=';
+let videoSourceFlag = false;
+
+function gotDevices(devices) {
+  devices.forEach(device => {
+    if (device.kind === 'videoinput'){
+      console.log('====== get device object:');
+      console.dir(device);
+      videoSourceFlag = true;
+    } else {
+      console.log("No input");
+      videoSourceFlag = false;
+    }
+  });
+}
+
+navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+
+
+function gotStream(stream) {
+  window.stream = stream; // make stream available to console
   video.srcObject = stream;
+  // Refresh button list in case labels have become available
+  return navigator.mediaDevices.enumerateDevices();
+}
+
+
+function start(){
+  if(window.stream){
+    window.stream.getTracks().forEach(track => {
+      track.stop();
+    });
+  }
+  const constraints = {
+    audio: false,
+    video: {
+      deviceId: videoSource ? { exact: videoSource } : undefined
+    }
+  };
+  navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 }
 
 function handleError(error) {
-  if (error.name === 'ConstraintNotSatisfiedError') {
-    let v = constraints.video;
-    errorMsg(`The resolution ${v.width.exact}x${v.height.exact} px is not supported by your device.`);
-  } else if (error.name === 'PermissionDeniedError') {
-    errorMsg('Permissions have not been granted to use your camera and ' +
-      'microphone, you need to allow the page access to your devices in ' +
-      'order for the demo to work.');
-  }
-  errorMsg(`getUserMedia error: ${error.name}`, error);
+  console.log('navigator.getUserMedia error: ', error);
 }
 
 function errorMsg(msg, error) {
@@ -38,7 +64,4 @@ function errorMsg(msg, error) {
   }
 }
 
-navigator.mediaDevices
-  .getUserMedia(constraints)
-  .then(handleSuccess)
-  .catch(handleError);
+start();

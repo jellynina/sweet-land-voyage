@@ -9,8 +9,37 @@
 		- [Choose Cameras, Microphones and Speakers from Your Web App ](https://developers.google.com/web/updates/2015/10/media-devices#enumeratedevices)
 
 3. 待辦：expree sass整合
+4. 按鈕啟動機器球
 
-# Connect with UUID
+
+
+
+# USB2.0 PC CAMERA
+
+狀況：如果Leap motion連接，則會讀不到`USB2.0 PC CAMERA`，所以需要把input source固定，而不是使用選擇的方式。
+一開始串接的範本 [github](https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/gum)
+
+
+## 使用 `enumerateDevices()` 去抓取連接media狀況
+
+取得DeviceId資料
+```js
+navigator.mediaDevices.enumerateDevices()
+.then(function(devices) {
+  devices.forEach(function(device) {
+    console.log(device.kind + ": " + device.label +
+                " id = " + device.deviceId);
+  });
+})
+.catch(function(err) {
+  console.log(err.name + ": " + err.message);
+});
+```
+
+`videoinput: USB2.0 PC CAMERA id = vC4umQBBEQHHs9k6Wd4+m6WP60B7DBCyEVIFLRVXXM4= debugger eval code:4:5 `
+
+
+# Connect Sphero with UUID
 
 使用noble尋找UUID
 
