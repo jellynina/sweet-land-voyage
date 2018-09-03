@@ -2,7 +2,7 @@ extends layout.pug
 
 block content
   section#video
-    h2 Let get the camera
+    h2 Let's get the camera
     video(id="webcamfeed" autoplay)
 
   section#data
@@ -12,3 +12,6 @@ block content
     form(action='/', method='post')
       button(type='submit') Get the ball's data
     p= data
+  include includes/footer.pug
+  script(src='./video.js')
+  script(src='https://js.leapmotion.com/leap-0.6.4.min.js')
