@@ -39,6 +39,11 @@ navigator.mediaDevices.enumerateDevices()
 `videoinput: USB2.0 PC CAMERA id = vC4umQBBEQHHs9k6Wd4+m6WP60B7DBCyEVIFLRVXXM4= debugger eval code:4:5 `
 
 
+參考
+- [git](https://github.com/webrtc/samples/blob/gh-pages/src/content/devices/input-output/js/main.js)寫法
+- [MDN MediaDevices](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices)
+
+
 # Connect Sphero with UUID
 
 使用noble尋找UUID
