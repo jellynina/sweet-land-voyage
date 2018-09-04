@@ -46,14 +46,14 @@ const initLeapMotionConnection = () => {
   });
   console.log('waiting for Leap Motion connection...');
   controller.connect();
+  controller.setBackground(true);
 
   controller.on('connect', () => {
     console.log('connected to leap motion');
   });
   controller.on('ready', () => {
     console.log('ready');
-    console.log(controller.connected());
-    
+
   });
   controller.on('deviceStreaming', () => {
     console.log('!!!LEAP connected');
@@ -66,20 +66,27 @@ const initLeapMotionConnection = () => {
     console.log('!!!LEAP disconnected!!!');
   });
   controller.on('frame', frame => {
-    if (frame.hands[0]) handleSwipe(frame.hands[0]);
+    if (frame.hands[0]) {
+      handleSwipe(frame.hands[0]);
+    }
   });
 
   setInterval(() => {
     console.log('=======FLAG=========');
-    //console.dir(controller);
     if(controller.connected()){
       console.log('悠忽～還在');
     } else {
       console.log('斷線啦');
     }
+    console.dir(controller.inBrowser());
+    console.dir(controller.frame().valid);
 
-  }, 30000);
+  }, 5000);
 }
+
+setInterval(() => {
+  console.log("到底有沒有在動呢？");
+}, 15000);
 
 const handleSwipe = hand => {
   let previousFrame = controller.frame(1);

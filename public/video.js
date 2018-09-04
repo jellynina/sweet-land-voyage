@@ -61,4 +61,4 @@ function errorMsg(msg, error) {
   }
 }
 
-start();
+//start();
