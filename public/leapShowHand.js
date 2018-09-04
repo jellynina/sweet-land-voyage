@@ -1,4 +1,4 @@
-//$(document).ready(function () {
+
   function move(node, posX, posY, posZ, rotX, rotY, rotZ) {
     var style = node.style;
     style.transform =
@@ -32,7 +32,7 @@
 
   var pool = {};
 
-  Leap.loop(function (frame) {
+  function leapLoop(frame){
     var ids = {};
     var hands = frame.hands;
     var pointables = frame.pointables; //pointables returns values for each fingers tracked.
@@ -74,12 +74,7 @@
         delete pool[id];
       }
     }
+    
+  }
 
-    // document.getElementById('showHands').addEventListener('click', function () {
-    //   app.className = 'show-hands';
-    // }, false);
-    // document.getElementById('hideHands').addEventListener('click', function () {
-    //   app.className = '';
-    // }, false);
-  });
-//});
+  Leap.loop(leapLoop);
