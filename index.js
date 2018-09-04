@@ -1,6 +1,7 @@
 "use strict";
 
 const Sphero = require("./node_modules/sphero/lib/sphero"),
+leapjs = require('leapjs'),
 express = require('express'),
 path = require('path');
 

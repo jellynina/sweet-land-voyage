@@ -14,9 +14,7 @@ button {
   padding: .5em;
 }
 
-#webcamfeed {
-  width: 40em;
-}
+
 
 #app {
   position: absolute;
@@ -72,6 +70,11 @@ button {
 }
 #scene:before,{
   z-index: 2;
+}
+
+#webcamfeed {
+  -webkit-transform: rotate3d(1, 0, 0, -90deg) translate3d(7em, -100%, 0);
+  width: 26em;
 }
 
 .cube {
