@@ -69,8 +69,13 @@ function leapLoop(frame){
   }
   
 }
+
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
+    // document ready
+    console.log('hello');
     Leap.loop(leapLoop);
   }
 };
+
+

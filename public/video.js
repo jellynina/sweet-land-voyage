@@ -44,11 +44,11 @@ function start(){
       track.stop();
     });
   }
-  VideoArray.forEach((obj) => {
-    if (obj.label == 'USB2.0 PC CAMERA'){
-      constraints.video = obj.id;
-    }
-  });
+  // VideoArray.forEach((obj) => {
+  //   if (obj.label == 'USB2.0 PC CAMERA'){
+  //     constraints.video = obj.id;
+  //   }
+  // });
 
   navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 }

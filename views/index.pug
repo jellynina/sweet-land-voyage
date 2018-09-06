@@ -2,14 +2,6 @@ extends layout.pug
 
 block content
   include includes/leapScreen.pug
-
-  section#data
-    h2 Sphero's data
-    h3 Connect to Balls
-    h3 Ball's DATA
-    form(action='/', method='post')
-      button(type='submit') Get the ball's data
-    p= data
   include includes/footer.pug
   script(src='./video.js')
   script(src='https://js.leapmotion.com/leap-0.6.4.min.js')
