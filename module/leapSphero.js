@@ -3,6 +3,16 @@ const Sphero = require("../node_modules/sphero/lib/sphero"),
 
 const theBall = new Sphero('af1f81cb842f4308a56657398413d334');
 
+
+
+const express = require('express'),
+  path = require('path');
+
+const app = express();
+var http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+
 // Leap motion controller
 let newDirection = '?';
 let previousDirection, controller;
@@ -13,6 +23,8 @@ const DOWN = 'DOWN';
 const FORWARD = 'FORWARD';
 const BACKWARD = 'BACKWARD';
 
+let spheroDataStream = {};
+
 const spheroModule = () => {
   initConnections();
 }
@@ -21,22 +33,24 @@ const initConnections = () => {
   theBall.connect(() => {
     console.log('Connected to Sphero');
     initLeapMotionConnection();
-//    getBluetoothData();
+    trytry();
+
+    io.on('connection', (socket) => {
+      io.emit('batteryUpdate', 'hi');
+    });
+    
   });
+    
+
 }
 
-const getBluetoothData = () => {
-  theBall.getBluetoothInfo(function (err, data) {
-    if (err) {
-      console.log("error: ", err);
-    } else {
-      console.log("data:");
-      console.log("  name:", data.name);
-      console.log("  btAddress:", data.btAddress);
-      console.log("  separator:", data.separator);
-      console.log("  colors:", data.colors);
-    }
+const trytry = () => {
+  theBall.streamImuAngles();
+  theBall.on("imuAngles", function (data) {
+    io.emit('trytryDataStream', data);
+    console.log('trytry');
   });
+
 }
 
 const initLeapMotionConnection = () => {
@@ -84,10 +98,11 @@ const initLeapMotionConnection = () => {
   }, 5000);
 }
 
+/*
 setInterval(() => {
   console.log("到底有沒有在動呢？");
 }, 15000);
-
+*/
 const handleSwipe = hand => {
   let previousFrame = controller.frame(1);
   let movement = hand.translation(previousFrame);

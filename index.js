@@ -4,8 +4,14 @@ const express = require('express'),
 path = require('path');
 const leapSphero = require('./module/leapSphero.js')();
 
-
 const app = express();
+var http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+//  io.emit('batteryUpdate', 'hi');
+});
 
 /*== Express webserver ==*/
 app.use(express.static('public'));
@@ -26,6 +32,7 @@ app.post('/', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('The application is running on localhost:3000');
+
+http.listen(3000, function () {
+  console.log('listening on *:3000');
 });
