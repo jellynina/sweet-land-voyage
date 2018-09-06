@@ -8,14 +8,6 @@
   box-sizing: border-box;
 }
 
-button {
-  position: relative;
-  z-index: 999;
-  padding: .5em;
-}
-
-
-
 #app {
   position: absolute;
   width: 100%;
