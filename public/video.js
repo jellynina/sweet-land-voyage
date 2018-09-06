@@ -3,22 +3,25 @@
 const video = document.getElementById("webcamfeed"),
       captureWebcam = document.getElementById("capturewebcam");
 
-const targetID = 'vC4umQBBEQHHs9k6Wd4+m6WP60B7DBCyEVIFLRVXXM4=';
+//const targetID = 'vC4umQBBEQHHs9k6Wd4+m6WP60B7DBCyEVIFLRVXXM4=';
 // Put variables in global scope to make them available to the browser console.
 const constraints = window.constraints = {
   audio: false,
   video: true
 };
 
-let videoSource = 'vC4umQBBEQHHs9k6Wd4+m6WP60B7DBCyEVIFLRVXXM4=';
 let videoSourceFlag = false;
+let VideoArray = [];
 
 function gotDevices(devices) {
   devices.forEach(device => {
     if (device.kind === 'videoinput'){
-      //console.log('====== get device object:');
-      //console.dir(device);
       videoSourceFlag = true;
+      VideoArray.push({
+        kind: device.kind,
+        label: device.label,
+        id: device.deviceId
+      });
     }
   });
 }
@@ -35,17 +38,18 @@ function gotStream(stream) {
 
 
 function start(){
+  console.log(VideoArray);
   if(window.stream){
     window.stream.getTracks().forEach(track => {
       track.stop();
     });
   }
-  const constraints = {
-    audio: false,
-    video: {
-      deviceId: videoSource ? { exact: videoSource } : undefined
+  VideoArray.forEach((obj) => {
+    if (obj.label == 'USB2.0 PC CAMERA'){
+      constraints.video = obj.id;
     }
-  };
+  });
+
   navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 }
 
@@ -61,4 +65,4 @@ function errorMsg(msg, error) {
   }
 }
 
-//start();
+ document.querySelector('#StartVideo').addEventListener('click', e => start());
