@@ -1,17 +1,17 @@
-"use strict";
+const Sphero = require("sphero/lib/sphero"),
+  Leap = require('leapjs');
+
+const theBall = new Sphero('af1f81cb842f4308a56657398413d334');
+
+
+
 const express = require('express'),
-      path = require('path');
+  path = require('path');
 
 const app = express();
-const http = require('http').Server(app);
+var http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-
-
-//Leap and Sphero
-const Sphero = require("./node_modules/sphero/lib/sphero"),
-      Leap = require('leapjs');
-const theBall = new Sphero('af1f81cb842f4308a56657398413d334');
 
 // Leap motion controller
 let newDirection = '?';
@@ -23,31 +23,39 @@ const DOWN = 'DOWN';
 const FORWARD = 'FORWARD';
 const BACKWARD = 'BACKWARD';
 
+const spheroModule = () => {
+  initConnections();
+}
 const initConnections = () => {
   console.log("Waiting for Sphero connection...");
   theBall.connect(() => {
     console.log('Connected to Sphero');
     initLeapMotionConnection();
     trytry();
+    getBattery();
+
+    io.on('connection', (socket) => {
+      io.emit('batteryUpdate', 'hi');
+    });
     
   });
+    
+
 }
-io.on('connection', (client) => {
-  client.on('soketClick', () => {
-    console.log('Trigger soketClick');
-    io.emit('soketFlag', 'Soket is working');
-  });
-});
 
+const trytry = () => {
+  setInterval(function () {
+    console.log("Queue is:", theBall.commandQueue);
+    theBall.randomColor();
+  }, 3000);
 
-
+}
 
 const getBattery = () => {
   theBall.getPowerState(function (err, data) {
     if (err) {
       console.log("error: ", err);
     } else {
-      io.emit('batteryUpdate', data);
       console.log("data:");
       console.log("  recVer:", data.recVer);
       console.log("  batteryState:", data.batteryState);
@@ -58,21 +66,6 @@ const getBattery = () => {
   });
 }
 
-
-const trytry = () => {
-  theBall.detectCollisions();
-  theBall.on("collision", function (data) {
-    console.log("data:");
-    console.log("  x:", data.x);
-    console.log("  y:", data.y);
-    console.log("  z:", data.z);
-    console.log("  axis:", data.axis);
-    console.log("  xMagnitud:", data.xMagnitud);
-    console.log("  yMagnitud:", data.yMagnitud);
-    console.log("  speed:", data.timeStamp);
-    console.log("  timeStamp:", data.timeStamp);
-  });
-}
 
 
 const initLeapMotionConnection = () => {
@@ -98,7 +91,7 @@ const initLeapMotionConnection = () => {
     console.log('!!!LEAP disconnected!!!');
 
   });
-  controller.on('disconnect', () => {
+  controller.on('disconnect', ()=>{
     console.log('!!!LEAP disconnected!!!');
   });
   controller.on('frame', frame => {
@@ -109,7 +102,7 @@ const initLeapMotionConnection = () => {
 
   setInterval(() => {
     console.log('=======FLAG=========');
-    if (controller.connected()) {
+    if(controller.connected()){
       console.log('悠忽～還在');
     } else {
       console.log('斷線啦');
@@ -120,6 +113,11 @@ const initLeapMotionConnection = () => {
   }, 5000);
 }
 
+/*
+setInterval(() => {
+  console.log("到底有沒有在動呢？");
+}, 15000);
+*/
 const handleSwipe = hand => {
   let previousFrame = controller.frame(1);
   let movement = hand.translation(previousFrame);
@@ -186,33 +184,4 @@ const moveSphero = direction => {
 const stopSphero = theBall => {
   theBall.roll(0, theBall.heading || 0, 0);
 };
-
-
-/*== Express webserver ==*/
-app.use(express.static('public'));
-/*== Expree Webserver ==*/
-app.set('view engine', 'pug');
-app.get('/', (req, res) => {
-  res.render('index', {
-    data: "Push th button to get the information"
-  });
-});
-
-app.post('/', (req, res) => {
-  console.log("Post trigger");
-  var dataTemp = "資料初始";
-  spheroModule();
-  res.render('index', {
-    data: dataTemp
-  });
-});
-
-
-io.on('connection', ()=>{
-  initConnections();
-});
-
-
-http.listen(3000, function () {
-  console.log('listening on *:3000');
-});
+module.exports = spheroModule;
