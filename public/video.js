@@ -65,4 +65,4 @@ function errorMsg(msg, error) {
   }
 }
 
- document.querySelector('#StartVideo').addEventListener('click', e => start());
+document.querySelector('#Start').addEventListener('click', e => start());

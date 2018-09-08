@@ -1,10 +1,6 @@
 
 #app(class='show-hands')
-  #ui(class='ui')
-    button#StartVideo StartVideo
-    button#Start Start Count Down
-    div Time 
-      span#GameTimmer
+  include data/dashU.pug
   #scene
     video(id="webcamfeed" autoplay)
     #cube(class='cube')
@@ -26,6 +22,3 @@
       div(class='face rt')
       div(class='face ft')
       div(class='face bk')
-
-    #info(class='ui')
-      This is dummy text

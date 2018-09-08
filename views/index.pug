@@ -1,14 +1,8 @@
 extends layout.pug
 
 block content
-  button#pugRender Render from pug
-  button#socketRender Render From Socket
-  include includes/leapScreen.pug
-  #uiB(class='ui') Making some information
-    #soketFlag
-    #batteryStatus 
-    #trytryData
-    include data/dash.pug
+  include leapScreen.pug
+  include data/dash.pug
   include includes/footer.pug
   script(src='./video.js')
   script(src='https://js.leapmotion.com/leap-0.6.4.min.js')

@@ -1,19 +1,30 @@
-#webcamfeed{
-  z-index: 998;
-}
+
 
 button {
   position: relative;
   z-index: 999;
   padding: .5em;
   margin: .5em;
+  font-size: 1.5rem;
+  background-color:rgb(255, 34, 97);
+  color: #333333;
+  transition: ease-in .3s;
+
+}
+
+button:active{
+  background-color: rgb(224, 30, 85);
 }
 
 .ui{
   width: 100%;
-  background-color: rgba(0, 182, 214, 0.502);
+  background-color: rgba(0, 182, 214, 0.5);
   color: #FFF;
   font-size: 2em;
+}
+
+.ui-upper{
+  text-align: center;
 }
 
 #uiB{

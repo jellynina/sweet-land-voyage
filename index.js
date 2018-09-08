@@ -28,15 +28,16 @@ const initConnections = () => {
   theBall.connect(() => {
     console.log('Connected to Sphero');
     initLeapMotionConnection();
+    getBattery();
     trytry();
-    
   });
 }
+
 io.on('connection', (client) => {
-  client.on('soketClick', () => {
-    console.log('Trigger soketClick');
-    io.emit('soketFlag', 'Soket is working');
-  });
+  client.on('getConnectionClick', () => {
+    initConnections();
+ });
+  
 });
 
 
@@ -62,7 +63,7 @@ const getBattery = () => {
 const trytry = () => {
   theBall.detectCollisions();
   theBall.on("collision", function (data) {
-    console.log("data:");
+    console.log("collision data:");
     console.log("  x:", data.x);
     console.log("  y:", data.y);
     console.log("  z:", data.z);
@@ -106,7 +107,7 @@ const initLeapMotionConnection = () => {
       handleSwipe(frame.hands[0]);
     }
   });
-
+/*
   setInterval(() => {
     console.log('=======FLAG=========');
     if (controller.connected()) {
@@ -118,6 +119,7 @@ const initLeapMotionConnection = () => {
     console.dir(controller.frame().valid);
 
   }, 5000);
+  */
 }
 
 const handleSwipe = hand => {
@@ -208,9 +210,7 @@ app.post('/', (req, res) => {
 });
 
 
-io.on('connection', ()=>{
-  initConnections();
-});
+
 
 
 http.listen(3000, function () {
