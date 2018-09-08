@@ -1,8 +1,8 @@
 {
   "name": "sweet-land-voyage",
-  "version": "0.1.0",
+  "version": "0.1.1a",
   "description": "Storytelling Project Using Sphero and FPV camera",
-  "main": "index.js",
+  "main": "app.js",
   "directories": {
     "doc": "doc"
   },

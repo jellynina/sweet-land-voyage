@@ -44,6 +44,20 @@ navigator.mediaDevices.enumerateDevices()
 - [MDN MediaDevices](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices)
 
 
+# Sphero issue
+
+有人有跟我一樣的問題[issue 93](https://github.com/orbotix/sphero.js/issues/93)
+
+```
+Unhandled rejection Error: Command sync response was lost.
+    at Sphero.handler (/Users/ikeatouchbar/Documents/Sphero/sweetVoyage/node_modules/sphero/lib/sphero.js:252:21)
+    at ontimeout (timers.js:482:11)
+    at tryOnTimeout (timers.js:317:5)
+    at Timer.listOnTimeout (timers.js:277:5)
+```
+
+
+
 # Connect Sphero with UUID
 
 使用noble尋找UUID
