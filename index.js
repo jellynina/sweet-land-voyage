@@ -23,7 +23,7 @@ const DOWN = 'DOWN';
 const FORWARD = 'FORWARD';
 const BACKWARD = 'BACKWARD';
 
-let countdown = 1000;
+let countdown = 30;
 
 const initConnections = () => {
   console.log("Waiting for Sphero connection...");
@@ -40,10 +40,12 @@ io.on('connection', (client) => {
     // go = 1
     initConnections();
     startCountdown();
+    io.emit('GameOn');
  });
  client.on('endClick', () => {
   endConnection();
   resetCounting();
+  io.emit('GameSTOP');
  });
   
 });

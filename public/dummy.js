@@ -6,21 +6,35 @@ var BTNEndGame = document.querySelector('#End');
 var gameTimmer = document.querySelector('#gameTimmer');
 
 gameTimmer.innerHTML = '1000';
+BTNEndGame.style.visibility = 'hidden';
 
 
 
 BTNStartGame.addEventListener('click', () => {
   socket.emit('getConnectionClick');
-  //socket.emit('getBatteryClick');
-  // Start Count Down
 });
 
+BTNEndGame.addEventListener('click', () => {
+  socket.emit('endClick');
+})
+
 socket.on('timerChange', (data) => {
-  console.log("timer trigger" + data.countdown);
+  // console.log("timer trigger" + data.countdown);
   gameTimmer.innerHTML = 'Time: ' + data.countdown;
 });
 
 
 socket.on('batteryUpdate', (data) => {
   batteryInfoText.innerHTML = "data: <br>" + "  batteryState:" + data.batteryState + "<br>  batteryVoltage:" + data.batteryVoltage;
+});
+
+// Basic Status
+socket.on('GameOn', (data) => {
+  BTNStartGame.style.visibility = 'hidden';
+  BTNEndGame.style.visibility = 'visible';
+});
+
+socket.on('GameSTOP', (data) => {
+  BTNStartGame.style.visibility = 'visible';
+  BTNEndGame.style.visibility = 'hidden';
 });
