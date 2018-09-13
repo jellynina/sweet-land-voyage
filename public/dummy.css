@@ -9,7 +9,6 @@ button {
   background-color:rgb(255, 34, 97);
   color: #333333;
   transition: ease-in .3s;
-
 }
 
 button:active{
@@ -18,13 +17,15 @@ button:active{
 
 .ui{
   width: 100%;
-  background-color: rgba(0, 182, 214, 0.5);
+  /* background-color: rgba(0, 182, 214, 0.5); */
   color: #FFF;
   font-size: 2em;
 }
 
 .ui-upper{
   text-align: center;
+  position: relative;
+  z-index: 999;
 }
 
 #uiB{

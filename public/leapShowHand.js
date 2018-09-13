@@ -71,6 +71,7 @@ function leapLoop(frame){
 }
 
 document.onreadystatechange = () => {
+  console.log('onreadystatechange');
   if (document.readyState === 'complete') {
     // document ready
     console.log('hello');

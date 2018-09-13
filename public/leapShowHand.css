@@ -1,3 +1,10 @@
+/*
+Color Palette
+rgb(16, 24, 33)
+
+*/
+
+
 *,
 *:before {
   margin: 0;
@@ -14,7 +21,7 @@
   height: 100%;
   font-size: 200%;
   overflow: hidden;
-  background-color: #101010;
+  background-color: rgb(16, 24, 33);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   -webkit-perspective: 1000;
@@ -29,7 +36,8 @@
   width: 40em;
   height: 40em;
   margin: -20em 0 0 -20em;
-  border: 4px solid #A0A0A0;
+  border: 4px solid rgb(105, 114, 134);
+  /* border: 4px solid #A0A0A0; */
   background-color: rgba(255, 255, 255, .1);
   background-image:
     -webkit-linear-gradient(rgba(255, 255, 255, .4) .1em, transparent .1em),

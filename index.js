@@ -23,6 +23,8 @@ const DOWN = 'DOWN';
 const FORWARD = 'FORWARD';
 const BACKWARD = 'BACKWARD';
 
+let countdown = 1000;
+
 const initConnections = () => {
   console.log("Waiting for Sphero connection...");
   theBall.connect(() => {
@@ -35,11 +37,41 @@ const initConnections = () => {
 
 io.on('connection', (client) => {
   client.on('getConnectionClick', () => {
+    // go = 1
     initConnections();
+    startCountdown();
+ });
+ client.on('endClick', () => {
+  endConnection();
+  resetCounting();
  });
   
 });
 
+
+const startCountdown = () => {
+  setInterval(() => {
+    if (countdown >= 0){
+      countdown--;
+      io.emit('timerChange', {
+        countdown: countdown
+      });
+    }
+  }, 1000);
+}
+
+const resetCounting = () => {
+  countdown = 1000;
+  io.emit('timerChange', {
+    countdown: countdown
+  });
+}
+
+const endConnection = () => {
+  //停止Leapmotion
+  //停止sphero
+  console.log('endConnection');
+}
 
 
 
