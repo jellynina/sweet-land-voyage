@@ -22,8 +22,10 @@ const UP = 'UP';
 const DOWN = 'DOWN';
 const FORWARD = 'FORWARD';
 const BACKWARD = 'BACKWARD';
+const configCountdown =203;
 
-let countdown = 30;
+let countdown = configCountdown;
+let gameOn = false;
 
 const initConnections = () => {
   console.log("Waiting for Sphero connection...");
@@ -32,17 +34,19 @@ const initConnections = () => {
     initLeapMotionConnection();
     getBattery();
     trytry();
+    startCountdown();
   });
 }
 
 io.on('connection', (client) => {
   client.on('getConnectionClick', () => {
-    // go = 1
+    gameOn = true;
     initConnections();
-    startCountdown();
+    // startCountdown();
     io.emit('GameOn');
  });
  client.on('endClick', () => {
+   gameOn = false;
   endConnection();
   resetCounting();
   io.emit('GameSTOP');
@@ -53,17 +57,19 @@ io.on('connection', (client) => {
 
 const startCountdown = () => {
   setInterval(() => {
-    if (countdown >= 0){
+    if (countdown > 0 && gameOn) {
       countdown--;
       io.emit('timerChange', {
         countdown: countdown
       });
+    } else {
+      io.emit('GameSTOP');
     }
   }, 1000);
 }
 
 const resetCounting = () => {
-  countdown = 1000;
+  countdown = configCountdown;
   io.emit('timerChange', {
     countdown: countdown
   });
@@ -73,8 +79,17 @@ const endConnection = () => {
   //停止Leapmotion
   //停止sphero
   console.log('endConnection');
+  stopConnection();
 }
 
+const stopConnection = () => {
+  controller = Leap.loop({
+    frameEventName: 'deviceFrame',
+    enableGestures: false
+  });
+  controller.disconnect();
+  io.emit('GameSTOP');
+}
 
 
 const getBattery = () => {

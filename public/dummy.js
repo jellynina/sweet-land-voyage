@@ -5,7 +5,6 @@ var BTNStartGame = document.querySelector('#Start');
 var BTNEndGame = document.querySelector('#End');
 var gameTimmer = document.querySelector('#gameTimmer');
 
-gameTimmer.innerHTML = '1000';
 BTNEndGame.style.visibility = 'hidden';
 
 
@@ -31,10 +30,10 @@ socket.on('batteryUpdate', (data) => {
 // Basic Status
 socket.on('GameOn', (data) => {
   BTNStartGame.style.visibility = 'hidden';
-  BTNEndGame.style.visibility = 'visible';
+  //BTNEndGame.style.visibility = 'visible';
 });
 
 socket.on('GameSTOP', (data) => {
   BTNStartGame.style.visibility = 'visible';
-  BTNEndGame.style.visibility = 'hidden';
+  //BTNEndGame.style.visibility = 'hidden';
 });

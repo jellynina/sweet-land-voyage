@@ -1,3 +1,4 @@
+var socket = io();
 var app = document.getElementById('app');
 var scene = document.getElementById('scene');
 var sphereTemplate = document.getElementById('sphere');
@@ -70,13 +71,17 @@ function leapLoop(frame){
   
 }
 
-document.onreadystatechange = () => {
-  console.log('onreadystatechange');
-  if (document.readyState === 'complete') {
-    // document ready
-    console.log('hello');
-    Leap.loop(leapLoop);
-  }
-};
+// document.onreadystatechange = () => {
+//   console.log('onreadystatechange');
+//   if (document.readyState === 'complete') {
+//     // document ready
+//     console.log('hello');
+//     Leap.loop(leapLoop);
+//   }
+// };
 
+socket.on('GameOn', (data) => {
+  Leap.loop(leapLoop);
+});
 
+// 使用socket io 去讀取 
