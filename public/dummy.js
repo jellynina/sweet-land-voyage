@@ -34,6 +34,6 @@ socket.on('GameOn', (data) => {
 });
 
 socket.on('GameSTOP', (data) => {
-  BTNStartGame.style.visibility = 'visible';
+  //BTNStartGame.style.visibility = 'visible';
   //BTNEndGame.style.visibility = 'hidden';
 });

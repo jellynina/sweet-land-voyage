@@ -33,7 +33,7 @@ const initConnections = () => {
     console.log('Connected to Sphero');
     initLeapMotionConnection();
     getBattery();
-    trytry();
+    //trytry();
     startCountdown();
   });
 }
